@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:grofeed_app/screens/host_live_event.dart';
 import 'package:grofeed_app/screens/splash_screen.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
+  MyApp({super.key});
+  final List<GetPage> _pages = [
+    GetPage(name: '/', page: () => const SplashScreen()),
+    GetPage(name: '/host_live_event', page: () => HostLiveEvent())
+  ];
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -26,7 +30,8 @@ class MyApp extends StatelessWidget {
         textTheme: GoogleFonts.poppinsTextTheme(),
       ),
       debugShowCheckedModeBanner: false,
-      home: const SplashScreen(),
+      initialRoute: '/',
+      getPages: _pages,
     );
   }
 }

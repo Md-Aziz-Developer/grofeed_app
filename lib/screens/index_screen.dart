@@ -3,10 +3,13 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:grofeed_app/screens/login_screen.dart';
+import 'package:grofeed_app/screens/products_screen.dart';
+import 'package:grofeed_app/screens/setting_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class IndexScreen extends StatefulWidget {
-  const IndexScreen({super.key});
+  final int? initialIndex;
+  const IndexScreen({Key? key, this.initialIndex}) : super(key: key);
 
   @override
   State<IndexScreen> createState() => _IndexScreenState();
@@ -14,12 +17,24 @@ class IndexScreen extends StatefulWidget {
 
 class _IndexScreenState extends State<IndexScreen> {
   String partnerName = '';
+  late int _currentIndex;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    setState(() {
+      _currentIndex = widget.initialIndex ?? 0;
+    });
     getPartner();
   }
+
+  final List<Widget> _pages = [
+    ProductScreen(),
+    Text('Second Page'),
+    Text('Third Page'),
+    Text('Fourth Page'),
+    SettingScreen()
+  ];
 
   void getPartner() async {
     final prefs = await SharedPreferences.getInstance();
@@ -33,35 +48,33 @@ class _IndexScreenState extends State<IndexScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-          preferredSize: Size.fromHeight(50),
-          child: AppBar(
-            backgroundColor: Colors.black,
-            centerTitle: true,
-            elevation: 3,
-            title: Text(
-              'Welcome ' + partnerName,
-              style: TextStyle(color: Colors.white),
-            ),
-            actions: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: GestureDetector(
-                  onTap: () async {
-                    final prefs = await SharedPreferences.getInstance();
-                    prefs.clear();
-                    Get.offAll(() => LoginScreen());
-                  },
-                  child: Icon(
-                    Icons.logout,
-                    color: Colors.white,
-                  ),
-                ),
-              )
-            ],
-          )),
-      body: Center(
-        child: Text('Hii there ' + partnerName),
+      body: _pages[_currentIndex],
+      bottomNavigationBar: Container(
+        child: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
+          backgroundColor: Colors.black,
+          selectedItemColor: Colors.white,
+          unselectedItemColor: Colors.white.withOpacity(.60),
+          selectedFontSize: 20,
+          unselectedFontSize: 18,
+          currentIndex: _currentIndex,
+          onTap: (index) {
+            setState(() {
+              _currentIndex = index;
+            });
+          },
+          items: [
+            BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.explore_outlined), label: 'Explore'),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.add_circle_outline), label: 'Create'),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.wallet_rounded), label: 'Wallet'),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.settings), label: 'Setting'),
+          ],
+        ),
       ),
     );
   }
