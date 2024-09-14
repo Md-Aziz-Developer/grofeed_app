@@ -51,7 +51,7 @@ class _SettingScreenState extends State<SettingScreen> {
               height: 100,
             ),
           ),
-          Text(partnerName)
+          Text('Hii ' + partnerName)
         ],
       ),
     );
