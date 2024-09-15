@@ -1,8 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:grofeed_app/screens/login_screen.dart';
 import 'package:grofeed_app/screens/products_screen.dart';
 import 'package:grofeed_app/screens/setting_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -29,11 +27,11 @@ class _IndexScreenState extends State<IndexScreen> {
   }
 
   final List<Widget> _pages = [
-    ProductScreen(),
-    Text('Second Page'),
-    Text('Third Page'),
-    Text('Fourth Page'),
-    SettingScreen()
+    const ProductScreen(),
+    const Text('Second Page'),
+    const Text('Third Page'),
+    const Text('Fourth Page'),
+    const SettingScreen()
   ];
 
   void getPartner() async {
@@ -64,14 +62,15 @@ class _IndexScreenState extends State<IndexScreen> {
             });
           },
           items: [
-            BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-            BottomNavigationBarItem(
+            const BottomNavigationBarItem(
+                icon: Icon(Icons.home), label: 'Home'),
+            const BottomNavigationBarItem(
                 icon: Icon(Icons.explore_outlined), label: 'Explore'),
-            BottomNavigationBarItem(
+            const BottomNavigationBarItem(
                 icon: Icon(Icons.add_circle_outline), label: 'Create'),
-            BottomNavigationBarItem(
+            const BottomNavigationBarItem(
                 icon: Icon(Icons.wallet_rounded), label: 'Wallet'),
-            BottomNavigationBarItem(
+            const BottomNavigationBarItem(
                 icon: Icon(Icons.settings), label: 'Setting'),
           ],
         ),

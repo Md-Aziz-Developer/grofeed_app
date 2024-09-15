@@ -302,35 +302,47 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ],
               ),
             ),
-            Container(
-              margin: const EdgeInsets.only(top: 10),
-              width: MediaQuery.of(context).size.width * .5,
-              child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(vertical: 10),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                  ),
-                  onPressed: () {
-                    signUp();
-                  },
-                  child: _isLoading
-                      ? SizedBox(
+            _isLoading
+                ? Container(
+                    margin: const EdgeInsets.only(top: 10),
+                    width: MediaQuery.of(context).size.width * .5,
+                    child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(vertical: 10),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                        ),
+                        onPressed: () {},
+                        child: SizedBox(
                           height: 20,
                           width: 20,
                           child: CircularProgressIndicator(
                             color: Theme.of(context).colorScheme.secondary,
                           ),
-                        )
-                      : Text(
+                        )),
+                  )
+                : Container(
+                    margin: const EdgeInsets.only(top: 10),
+                    width: MediaQuery.of(context).size.width * .5,
+                    child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(vertical: 10),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                        ),
+                        onPressed: () {
+                          signUp();
+                        },
+                        child: Text(
                           'Sign Up',
                           style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.bold,
                               color: Theme.of(context).colorScheme.secondary),
                         )),
-            ),
+                  ),
             SizedBox(
               height: 10,
             ),

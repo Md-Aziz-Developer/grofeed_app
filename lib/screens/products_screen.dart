@@ -1,10 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:grofeed_app/screens/login_screen.dart';
 import 'package:grofeed_app/widgets/product_container_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:get/get.dart';
 
 class ProductScreen extends StatefulWidget {
   const ProductScreen({super.key});
@@ -43,22 +41,6 @@ class _ProductScreenState extends State<ProductScreen> {
             height: 50,
           ),
           elevation: 3,
-          actions: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: GestureDetector(
-                onTap: () async {
-                  final prefs = await SharedPreferences.getInstance();
-                  prefs.clear();
-                  Get.offAll(() => const LoginScreen());
-                },
-                child: const Icon(
-                  Icons.logout,
-                  color: Colors.white,
-                ),
-              ),
-            )
-          ],
         ),
       ),
       body: const Column(
