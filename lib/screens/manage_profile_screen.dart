@@ -2,8 +2,10 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:grofeed_app/constants/api_path.dart';
 import 'package:grofeed_app/screens/index_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
 
 class ManageProfileScreen extends StatefulWidget {
   const ManageProfileScreen({super.key});
@@ -61,12 +63,92 @@ class _ManageProfileScreenState extends State<ManageProfileScreen> {
     return allowedChars.hasMatch(username);
   }
 
+  void updateProfile() async {
+    if (_name.text.toString() == '') {
+      Get.snackbar('Ohh!!', 'Name is required',
+          backgroundColor: Colors.red, colorText: Colors.white);
+    } else if (_name.text.toString().length < 3) {
+      Get.snackbar('Ohh!!', 'Name is to short!!!',
+          backgroundColor: Colors.red, colorText: Colors.white);
+    } else if (_email.text.toString() == '') {
+      Get.snackbar('Ohh!!', 'Email is required',
+          backgroundColor: Colors.red, colorText: Colors.white);
+    } else if (!isEmailValid(_email.text.toString())) {
+      Get.snackbar('Ohh!!', 'Email is not valid',
+          backgroundColor: Colors.red, colorText: Colors.white);
+    } else if (_number.text.toString() == '') {
+      Get.snackbar('Ohh!!', 'Number is required',
+          backgroundColor: Colors.red, colorText: Colors.white);
+    } else if (_number.text.toString().length != 10) {
+      Get.snackbar('Ohh!!', 'Number nust be of 10 digit',
+          backgroundColor: Colors.red, colorText: Colors.white);
+    } else if (_username.text.toString() == '') {
+      Get.snackbar('Ohh!!', 'Username is required',
+          backgroundColor: Colors.red, colorText: Colors.white);
+    } else if (_username.text.toString().length < 6) {
+      Get.snackbar('Ohh!!', 'Username is to short!!!',
+          backgroundColor: Colors.red, colorText: Colors.white);
+    } else if (_username.text.toString().length > 20) {
+      Get.snackbar('Ohh!!', 'Username is to long!!!',
+          backgroundColor: Colors.red, colorText: Colors.white);
+    } else if (!validateUsername(_username.text.toString())) {
+      Get.snackbar('Ohh!!', 'Username is not valid',
+          backgroundColor: Colors.red, colorText: Colors.white);
+    } else if (_address.text.toString() == '') {
+      Get.snackbar('Ohh!!', 'Address is required!!!',
+          backgroundColor: Colors.red, colorText: Colors.white);
+    } else {
+      setState(() {
+        _isLoading = true;
+      });
+      final response =
+          await http.post(Uri.parse(BASE_PATH + UPDATE_PROFILE), body: {
+        'partner_id': partnerId,
+        'name': _name.text.toString(),
+        'email': _email.text.toString(),
+        'number': _number.text.toString(),
+        'user_name': _username.text.toString(),
+        'address': _address.text.toString()
+      });
+      if (response.statusCode == 200) {
+        final myData = jsonDecode(response.body.toString());
+        if (myData['status'] == 1) {
+          setState(() {
+            _isLoading = false;
+          });
+          final partner = myData['partner'];
+          // print(partner);
+          final partnerId = myData['partner']['partner_id'];
+          final prefs = await SharedPreferences.getInstance();
+          prefs.setString('partner_id', jsonEncode(partnerId));
+          prefs.setString('partner', jsonEncode(partner));
+          getPartner();
+          Get.snackbar('Hurry', myData['message'],
+              backgroundColor: Colors.green, colorText: Colors.white);
+        } else {
+          setState(() {
+            _isLoading = false;
+          });
+          Get.snackbar('Ohh!!', myData['message'],
+              backgroundColor: Colors.red, colorText: Colors.white);
+        }
+      } else {
+        setState(() {
+          _isLoading = false;
+        });
+        Get.snackbar('Ohh!!', 'Bad Request Try Again!!!',
+            backgroundColor: Colors.red, colorText: Colors.white);
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
           preferredSize: const Size.fromHeight(50),
           child: AppBar(
+            centerTitle: true,
             backgroundColor: Colors.black,
             leading: IconButton(
                 onPressed: () {
@@ -220,7 +302,7 @@ class _ManageProfileScreenState extends State<ManageProfileScreen> {
                           ),
                         ),
                         onPressed: () {
-                          // signUp();
+                          updateProfile();
                         },
                         child: Text(
                           'Update Profile',

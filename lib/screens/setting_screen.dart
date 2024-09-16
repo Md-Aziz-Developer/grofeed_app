@@ -38,6 +38,7 @@ class _SettingScreenState extends State<SettingScreen> {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(50),
         child: AppBar(
+          centerTitle: true,
           backgroundColor: Colors.black,
           title: Image.asset(
             'assets/GROFEED_LOGO.png',
