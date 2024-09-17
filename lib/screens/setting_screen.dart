@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:grofeed_app/screens/login_screen.dart';
+import 'package:grofeed_app/screens/manage_business_details.dart';
 import 'package:grofeed_app/screens/manage_profile_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -38,6 +39,7 @@ class _SettingScreenState extends State<SettingScreen> {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(50),
         child: AppBar(
+          centerTitle: true,
           backgroundColor: Colors.black,
           title: Image.asset(
             'assets/GROFEED_LOGO.png',
@@ -86,7 +88,10 @@ class _SettingScreenState extends State<SettingScreen> {
               decoration: BoxDecoration(
                   border: Border.all(color: Colors.white),
                   borderRadius: BorderRadius.circular(12)),
-              child: const ListTile(
+              child: ListTile(
+                onTap: () {
+                  Get.to(() => const ManageBusinessDetails());
+                },
                 leading: Icon(Icons.business),
                 title: Text(
                   'Business Details',
