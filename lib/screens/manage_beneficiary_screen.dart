@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:grofeed_app/constants/api_path.dart';
+import 'package:grofeed_app/controllers/beneficiary_controller.dart';
 import 'package:grofeed_app/models/beneficiary_list_model.dart';
 import 'package:grofeed_app/screens/index_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -18,6 +19,7 @@ class ManageBeneficiary extends StatefulWidget {
 class _ManageBeneficiaryState extends State<ManageBeneficiary> {
   bool _isDataLoading = true;
   String partnerId = '';
+  final beneficiaryController = BeneficiaryController();
   @override
   void initState() {
     // TODO: implement initState
@@ -41,12 +43,9 @@ class _ManageBeneficiaryState extends State<ManageBeneficiary> {
   BeneficiaryList? beneficiaryList;
   List<Beneficiary> beneficiary = [];
   void getBeneficiaryList() async {
-    final response = await http.post(
-        Uri.parse(BASE_PATH + GET_BENEFICIARY_LIST),
-        body: {'partner_id': partnerId});
-    if (response.statusCode == 200) {
-      beneficiaryList = BeneficiaryList.fromJson(
-          response.body.toString() as Map<String, dynamic>);
+    final result = await beneficiaryController.getBeneficiaryList(partnerId);
+    if (result != null) {
+      beneficiaryList = result;
       beneficiaryList!.beneficiary?.forEach((element) {
         beneficiary.add(element);
       });
@@ -86,7 +85,35 @@ class _ManageBeneficiaryState extends State<ManageBeneficiary> {
           )),
       body: _isDataLoading
           ? Center(child: CircularProgressIndicator())
-          : Text('data'),
+          : Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ListView.separated(
+                separatorBuilder: (context, index) {
+                  return Divider(height: 5);
+                },
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: beneficiary.length,
+                itemBuilder: (context, index) {
+                  int myIndex = index + 1;
+                  return Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(color: Colors.white54)),
+                    child: ListTile(
+                      title: Row(
+                        children: [
+                          Text(beneficiary[index].bankName.toString()),
+                          Text(' (${beneficiary[index].ifscCode}) ')
+                        ],
+                      ),
+                      subtitle: Text(
+                          'Account Number : ${beneficiary[index].accountNumber}'),
+                    ),
+                  );
+                },
+              ),
+            ),
     );
   }
 }
