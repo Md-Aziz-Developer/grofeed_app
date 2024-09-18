@@ -3,7 +3,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:grofeed_app/screens/login_screen.dart';
+import 'package:grofeed_app/screens/manage_beneficiary_screen.dart';
 import 'package:grofeed_app/screens/manage_business_details.dart';
+import 'package:grofeed_app/screens/manage_document_details_screen.dart';
 import 'package:grofeed_app/screens/manage_profile_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -106,7 +108,10 @@ class _SettingScreenState extends State<SettingScreen> {
               decoration: BoxDecoration(
                   border: Border.all(color: Colors.white),
                   borderRadius: BorderRadius.circular(12)),
-              child: const ListTile(
+              child: ListTile(
+                onTap: () {
+                  Get.to(() => const ManageDocumentDetails());
+                },
                 leading: Icon(Icons.document_scanner),
                 title: Text(
                   'Documents',
@@ -121,7 +126,10 @@ class _SettingScreenState extends State<SettingScreen> {
               decoration: BoxDecoration(
                   border: Border.all(color: Colors.white),
                   borderRadius: BorderRadius.circular(12)),
-              child: const ListTile(
+              child: ListTile(
+                onTap: () {
+                  Get.to(() => const ManageBeneficiary());
+                },
                 leading: Icon(Icons.account_balance),
                 title: Text(
                   'Beneficiary ',

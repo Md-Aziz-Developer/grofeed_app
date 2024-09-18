@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:grofeed_app/constants/api_path.dart';
@@ -32,12 +33,12 @@ class _ManageBusinessDetailsState extends State<ManageBusinessDetails> {
     final partner = jsonDecode(prefs.getString('partner').toString());
     // print(partner);
     final id = partner['partner_id'];
-    final name = partner['partner_business_name'];
-    final email = partner['partner_business_email'];
-    final number = partner['partner_business_number'];
-    final address = partner['partner_business_address'];
-    final category = partner['partner_business_category'];
-    final logo = partner['partner_business_logo'];
+    final name = partner['partner_business_name'] ?? '';
+    final email = partner['partner_business_email'] ?? '';
+    final number = partner['partner_business_number'] ?? '';
+    final address = partner['partner_business_address'] ?? '';
+    final category = partner['partner_business_category'] ?? '';
+    final logo = partner['partner_business_logo'] ?? '';
     setState(() {
       partnerId = id;
       partnerName = name;

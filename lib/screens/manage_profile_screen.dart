@@ -34,7 +34,7 @@ class _ManageProfileScreenState extends State<ManageProfileScreen> {
     final email = partner['partner_email'];
     final number = partner['partner_number'];
     final username = partner['partner_username'];
-    final address = partner['partner_address'];
+    final address = partner['partner_address'] ?? '';
     setState(() {
       partnerId = id;
       partnerName = name;
@@ -165,7 +165,7 @@ class _ManageProfileScreenState extends State<ManageProfileScreen> {
               style: const TextStyle(color: Colors.white),
             ),
           )),
-      body: Container(
+      body: SingleChildScrollView(
         child: Column(
           children: [
             SizedBox(
