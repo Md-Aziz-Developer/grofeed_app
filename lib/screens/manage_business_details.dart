@@ -68,18 +68,34 @@ class _ManageBusinessDetailsState extends State<ManageBusinessDetails> {
     'Fitness',
     'Other'
   ];
-  File? image;
-  final _picker = ImagePicker();
+  // File? image;
+  // final _picker = ImagePicker();
+  // Future getImage() async {
+  //   final pickedFile =
+  //       await _picker.pickImage(source: ImageSource.gallery, imageQuality: 80);
+  //   if (pickedFile != null) {
+  //     setState(() {
+  //       currentImage = '';
+  //       image = File(pickedFile.path);
+  //     });
+  //   } else {
+  //     print('No image selected');
+  //   }
+  // }
+  File? file;
   Future getImage() async {
-    final pickedFile =
-        await _picker.pickImage(source: ImageSource.gallery, imageQuality: 80);
-    if (pickedFile != null) {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['jpg', 'png', 'jpeg', 'pdf'],
+    );
+
+    if (result != null) {
       setState(() {
-        currentImage = '';
-        image = File(pickedFile.path);
+        currentImage = ''; // if you still want to reset it
+        file = File(result.files.single.path!);
       });
     } else {
-      print('No image selected');
+      print('No file selected');
     }
   }
 
