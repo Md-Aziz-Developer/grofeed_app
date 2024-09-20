@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:grofeed_app/constants/api_path.dart';
 import 'package:grofeed_app/controllers/beneficiary_controller.dart';
 import 'package:grofeed_app/models/beneficiary_list_model.dart';
+import 'package:grofeed_app/screens/add_beneficiary.dart';
 import 'package:grofeed_app/screens/index_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
@@ -114,6 +115,17 @@ class _ManageBeneficiaryState extends State<ManageBeneficiary> {
                 },
               ),
             ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Get.to(() => const AddBeneficiary());
+        },
+        tooltip: 'Add',
+        child: const Icon(
+          Icons.add,
+          color: Colors.black,
+          size: 40,
+        ),
+      ),
     );
   }
 }
