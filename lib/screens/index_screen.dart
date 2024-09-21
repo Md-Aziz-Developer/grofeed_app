@@ -2,8 +2,10 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:grofeed_app/screens/dashboard_screen.dart';
+import 'package:grofeed_app/screens/explore_screen.dart';
 import 'package:grofeed_app/screens/products_screen.dart';
 import 'package:grofeed_app/screens/setting_screen.dart';
+import 'package:grofeed_app/screens/wallet_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class IndexScreen extends StatefulWidget {
@@ -29,9 +31,9 @@ class _IndexScreenState extends State<IndexScreen> {
 
   final List<Widget> _pages = [
     const DasboardScreen(),
-    const Text('Second Page'),
+    const ExploreScreen(),
     const ProductScreen(),
-    const Text('Fourth Page'),
+    const WalletScreen(),
     const SettingScreen()
   ];
 
