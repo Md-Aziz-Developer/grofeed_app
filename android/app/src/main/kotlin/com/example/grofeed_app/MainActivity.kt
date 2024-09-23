@@ -1,4 +1,4 @@
-package com.example.grofeed_app
+package com.grofeed_app
 
 import io.flutter.embedding.android.FlutterActivity
 
