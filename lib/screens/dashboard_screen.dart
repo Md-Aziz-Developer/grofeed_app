@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:math';
 
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:grofeed_app/constants/api_path.dart';
 import 'package:grofeed_app/models/dasboard_data_model.dart';
@@ -65,6 +66,23 @@ class _DasboardScreenState extends State<DasboardScreen> {
         totalEarningAmount = dashboardData!.total!.actualAmount.toString();
         _isDataLoading = false;
       });
+      // Convert order amounts to double
+      List<BarChartGroupData> barChartData =
+          graphData.asMap().entries.map((entry) {
+        int index = entry.key;
+        var data = entry.value;
+        // print(data.)
+        return BarChartGroupData(
+          x: index,
+          barRods: [
+            BarChartRodData(
+              toY: double.parse(data.orderAmount.toString()),
+              width: 16,
+              color: Colors.blue,
+            ),
+          ],
+        );
+      }).toList();
     } else {
       setState(() {
         _isDataLoading = false;
