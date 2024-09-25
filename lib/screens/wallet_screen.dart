@@ -20,6 +20,10 @@ class _WalletScreenState extends State<WalletScreen> {
   final walletController = WalletController();
   WalletDataList? walletDataList;
   List<Wallet> wallet = [];
+  List walletSelected = [];
+  List walletCanSelect = [];
+  List walletAmount = [];
+  List<bool> _selectedList = [];
   var fromDate = DateTime(
       DateTime.now().year, DateTime.now().month, DateTime.now().day - 7);
   var toDate = DateTime.now();
@@ -41,7 +45,6 @@ class _WalletScreenState extends State<WalletScreen> {
   }
 
   void getMyWallet() async {
-    print('kkk');
     String from = fromDate.toString();
     String to = toDate.toString();
     final result = await walletController.getMyWallet(partnerId, from, to);
@@ -51,6 +54,13 @@ class _WalletScreenState extends State<WalletScreen> {
       walletDataList = result;
       walletDataList!.wallet?.forEach((element) {
         wallet.add(element);
+        // if (element.withdrawalStatus != 'success' &&
+        //     element.withdrawalStatus != 'dispute') {
+        //   walletSelected.add(false);
+        //   walletCanSelect.add(element.walletCreditId);
+        //   walletAmount.add(element.actualAmount);
+        // }
+        _selectedList.add(false);
       });
     }
     setState(() {
@@ -58,9 +68,9 @@ class _WalletScreenState extends State<WalletScreen> {
     });
   }
 
-  void _handleCardSelection(bool selected) {
+  void _handleCardSelection(int index, bool isSelected) {
     setState(() {
-      // _isSelected = selected;
+      _selectedList[index] = isSelected;
     });
   }
 
@@ -158,8 +168,9 @@ class _WalletScreenState extends State<WalletScreen> {
                     actualAmount: wallet[index].actualAmount.toString(),
                     commissionAmount: wallet[index].commissionAmount.toString(),
                     withdrawalStatus: wallet[index].withdrawalStatus.toString(),
-                    isSelected: false,
-                    onSelectCard: _handleCardSelection);
+                    isSelected: _selectedList[index],
+                    onSelectCard: (isSelected) =>
+                        _handleCardSelection(index, isSelected));
               },
             )
           ],
