@@ -48,7 +48,10 @@ class WalletCard extends StatelessWidget {
                 children: [
                   Text(
                     orderNumber,
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                        color: isSelected ? Colors.black : Colors.white),
                     overflow: TextOverflow.ellipsis,
                   ),
                   Text(
@@ -79,23 +82,27 @@ class WalletCard extends StatelessWidget {
                 ],
               ),
 
-              // Commission Amount
               SizedBox(height: 5),
-              Text(
-                'Commission: ${commissionAmount}',
-                style: TextStyle(fontSize: 12, color: Colors.red[400]),
-              ),
-              SizedBox(height: 5),
-
-              // Withdrawal Status
-              Text(
-                'Status: ${withdrawalStatus.toUpperCase()}',
-                style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold,
-                  color:
-                      withdrawalStatus == 'dispute' ? Colors.red : Colors.white,
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  // Commission Amount
+                  Text(
+                    'Commission: ${commissionAmount}',
+                    style: TextStyle(fontSize: 12, color: Colors.red[400]),
+                  ),
+                  // Withdrawal Status
+                  Text(
+                    'Status: ${withdrawalStatus.toUpperCase()}',
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                      color: withdrawalStatus == 'dispute'
+                          ? Colors.red
+                          : Colors.white,
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
