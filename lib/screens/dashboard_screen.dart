@@ -5,6 +5,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:grofeed_app/constants/api_path.dart';
 import 'package:grofeed_app/models/dasboard_data_model.dart';
+import 'package:grofeed_app/widgets/order_card_widget.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
@@ -66,23 +67,25 @@ class _DasboardScreenState extends State<DasboardScreen> {
         totalEarningAmount = dashboardData!.total!.actualAmount.toString();
         _isDataLoading = false;
       });
-      // Convert order amounts to double
-      List<BarChartGroupData> barChartData =
-          graphData.asMap().entries.map((entry) {
-        int index = entry.key;
-        var data = entry.value;
-        // print(data.)
-        return BarChartGroupData(
-          x: index,
-          barRods: [
-            BarChartRodData(
-              toY: double.parse(data.orderAmount.toString()),
-              width: 16,
-              color: Colors.blue,
-            ),
-          ],
-        );
-      }).toList();
+      // print(todayEarningAmount);
+      // print(totalEarningAmount);
+      // // Convert order amounts to double
+      // List<BarChartGroupData> barChartData =
+      //     graphData.asMap().entries.map((entry) {
+      //   int index = entry.key;
+      //   var data = entry.value;
+      //   // print(data.)
+      //   return BarChartGroupData(
+      //     x: index,
+      //     barRods: [
+      //       BarChartRodData(
+      //         toY: double.parse(data.orderAmount.toString()),
+      //         width: 16,
+      //         color: Colors.blue,
+      //       ),
+      //     ],
+      //   );
+      // }).toList();
     } else {
       setState(() {
         _isDataLoading = false;
@@ -91,8 +94,12 @@ class _DasboardScreenState extends State<DasboardScreen> {
   }
 
   formatNumber(number) {
-    return NumberFormat.simpleCurrency(locale: 'hi-IN', decimalDigits: 0)
-        .format(int.parse(number));
+    try {
+      return NumberFormat.simpleCurrency(locale: 'hi-IN', decimalDigits: 2)
+          .format(double.parse(number));
+    } catch (e) {
+      return number;
+    }
   }
 
   @override
@@ -110,110 +117,219 @@ class _DasboardScreenState extends State<DasboardScreen> {
           elevation: 3,
         ),
       ),
-      body: Column(children: [
-        Container(
-          padding: const EdgeInsets.all(10),
-          margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(
-                flex: 1,
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(Radius.circular(8.0)),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
-                        spreadRadius: 2,
-                        blurRadius: 5,
-                        offset:
-                            const Offset(0, 3), // changes position of shadow
-                      ),
-                    ],
-                  ),
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
-                  margin: const EdgeInsets.all(3),
-                  child: Column(
-                    children: [
-                      const Text(
-                        'Today Order',
-                        style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w700),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            formatNumber(todayOrder),
-                            style: const TextStyle(
-                                fontSize: 14,
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      )
-                    ],
+      body: SingleChildScrollView(
+        child: Column(children: [
+          Container(
+            // padding: const EdgeInsets.all(10),
+            margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  flex: 1,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Color.fromRGBO(66, 66, 66, 1),
+                      border: Border.all(width: 1),
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(8.0)),
+                    ),
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+                    margin: const EdgeInsets.all(3),
+                    child: Column(
+                      children: [
+                        const Text(
+                          'Today Order',
+                          style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w700),
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              todayOrder,
+                              style: const TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              Expanded(
-                flex: 1,
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(Radius.circular(8.0)),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
-                        spreadRadius: 2,
-                        blurRadius: 5,
-                        offset:
-                            const Offset(0, 3), // changes position of shadow
-                      ),
-                    ],
-                  ),
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
-                  margin: const EdgeInsets.all(3),
-                  child: Column(
-                    children: [
-                      const Text(
-                        'Total Order',
-                        style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w700),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            formatNumber(totalOrder),
-                            style: const TextStyle(
-                                fontSize: 14,
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      )
-                    ],
+                Expanded(
+                  flex: 1,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Color.fromRGBO(66, 66, 66, 1),
+                      border: Border.all(width: 1),
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(8.0)),
+                    ),
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+                    margin: const EdgeInsets.all(3),
+                    child: Column(
+                      children: [
+                        const Text(
+                          'Total Order',
+                          style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w700),
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              totalOrder,
+                              style: const TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
                   ),
                 ),
-              )
-            ],
+              ],
+            ),
           ),
-        ),
-      ]),
+          Container(
+            padding: const EdgeInsets.all(5),
+            margin: const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  flex: 1,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Color.fromRGBO(66, 66, 66, 1),
+                      border: Border.all(width: 1),
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(8.0)),
+                    ),
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+                    margin: const EdgeInsets.all(3),
+                    child: Column(
+                      children: [
+                        const Text(
+                          'Today Amount',
+                          style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w700),
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              formatNumber(todayEarningAmount.toString()),
+                              style: const TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 1,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Color.fromRGBO(66, 66, 66, 1),
+                      border: Border.all(width: 1),
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(8.0)),
+                    ),
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+                    margin: const EdgeInsets.all(3),
+                    child: Column(
+                      children: [
+                        const Text(
+                          'Total Amount',
+                          style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w700),
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              formatNumber(totalEarningAmount.toString()),
+                              style: const TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                'Last 5 Orders',
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+              ),
+            ),
+          ),
+          ListView.builder(
+            // scrollDirection: Axis.vertical,
+            // physics: ,
+            physics: NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            itemCount: order.length,
+            itemBuilder: (context, index) {
+              return OrderCardWidget(
+                  orderNumber: order[index].orderNumber.toString(),
+                  userName: order[index].userName.toString(),
+                  orderDate: order[index].orderDate.toString(),
+                  orderStatus: order[index].orderStatus.toString(),
+                  contentType: order[index].contentType.toString(),
+                  contentTitle: order[index].title.toString(),
+                  orderAmount:
+                      formatNumber(order[index].orderAmount.toString()),
+                  paymentId: order[index].orderPaymentId.toString());
+            },
+          )
+        ]),
+      ),
     );
   }
 }
