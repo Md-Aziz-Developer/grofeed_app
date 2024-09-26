@@ -56,7 +56,9 @@ class WalletCard extends StatelessWidget {
                   ),
                   Text(
                     'Date: ${creditDate}',
-                    style: TextStyle(fontSize: 12, color: Colors.grey),
+                    style: TextStyle(
+                        fontSize: 12,
+                        color: isSelected ? Colors.black : Colors.grey),
                   ),
                 ],
               ),
@@ -70,14 +72,16 @@ class WalletCard extends StatelessWidget {
                 children: [
                   Text(
                     'Collected: $collectedAmount}',
-                    style: TextStyle(fontSize: 12),
+                    style: TextStyle(
+                        fontSize: 12,
+                        color: isSelected ? Colors.black : Colors.white),
                   ),
                   Text(
                     'Actual: $actualAmount}',
                     style: TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.bold,
-                        color: Colors.teal),
+                        color: isSelected ? Colors.black : Colors.teal),
                   ),
                 ],
               ),
@@ -93,7 +97,7 @@ class WalletCard extends StatelessWidget {
                   ),
                   // Withdrawal Status
                   Text(
-                    'Status: ${withdrawalStatus.toUpperCase()}',
+                    withdrawalStatus.toUpperCase(),
                     style: TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.bold,
