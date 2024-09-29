@@ -71,13 +71,13 @@ class WalletCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Collected: $collectedAmount}',
+                    'Collected: $collectedAmount',
                     style: TextStyle(
                         fontSize: 12,
                         color: isSelected ? Colors.black : Colors.white),
                   ),
                   Text(
-                    'Actual: $actualAmount}',
+                    'Actual: $actualAmount',
                     style: TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.bold,
