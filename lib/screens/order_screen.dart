@@ -1,31 +1,29 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:grofeed_app/controllers/wallet_controller.dart';
-import 'package:grofeed_app/models/wallet_list_model.dart';
-import 'package:grofeed_app/widgets/wallet_card_widget.dart';
+import 'package:grofeed_app/constants/api_path.dart';
+import 'package:grofeed_app/models/order_list_model.dart';
+import 'package:grofeed_app/widgets/order_card_widget.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
 
-class WalletScreen extends StatefulWidget {
-  const WalletScreen({super.key});
+class OrderScreen extends StatefulWidget {
+  const OrderScreen({super.key});
 
   @override
-  State<WalletScreen> createState() => _WalletScreenState();
+  State<OrderScreen> createState() => _OrderScreenState();
 }
 
-class _WalletScreenState extends State<WalletScreen> {
+class _OrderScreenState extends State<OrderScreen> {
   bool _isDataLoading = true;
   String partnerId = '';
-  final walletController = WalletController();
-  WalletDataList? walletDataList;
-  List<Wallet> wallet = [];
-  List walletSelected = [];
-  List walletCanSelect = [];
-  List walletAmount = [];
-  List<bool> _selectedList = [];
+  OrderList? orderList;
+  List<Order> order = [];
   var fromDate = DateTime.now();
   var toDate = DateTime.now();
+
   @override
   void initState() {
     // TODO: implement initState
@@ -40,34 +38,54 @@ class _WalletScreenState extends State<WalletScreen> {
     setState(() {
       partnerId = id;
     });
-    getMyWallet();
+    getMyOrders();
   }
 
-  void getMyWallet() async {
+  void getMyOrders() async {
     String from = fromDate.toString();
     String to = toDate.toString();
-    final result = await walletController.getMyWallet(partnerId, from, to);
-    if (result != null) {
-      wallet.clear();
+    try {
+      final response = await http.post(Uri.parse(BASE_PATH + GET_ORDER),
+          body: {'partner_id': partnerId, "from": from, "to": to});
+      dynamic resultdata;
+      if (response.statusCode == 200) {
+        resultdata = OrderList.fromJson(jsonDecode(response.body.toString()));
+        if (resultdata != null) {
+          order.clear();
 
-      walletDataList = result;
-      walletDataList!.wallet?.forEach((element) {
-        wallet.add(element);
-        // if (element.withdrawalStatus != 'success' &&
-        //     element.withdrawalStatus != 'dispute') {
-        //   walletSelected.add(false);
-        //   walletCanSelect.add(element.walletCreditId);
-        //   walletAmount.add(element.actualAmount);
-        // }
-        _selectedList.add(false);
-      });
+          orderList = resultdata;
+          orderList!.order?.forEach((element) {
+            order.add(element);
+          });
+          setState(() {
+            _isDataLoading = false;
+          });
+        } else {
+          setState(() {
+            _isDataLoading = false;
+          });
+        }
+      } else {
+        setState(() {
+          _isDataLoading = false;
+        });
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print(e.toString());
+      }
+      return null;
     }
-    setState(() {
-      _isDataLoading = false;
-    });
   }
 
-  void _handleCardSelection(int index, bool isSelected) {}
+  formatNumber(number) {
+    try {
+      return NumberFormat.simpleCurrency(locale: 'hi-IN', decimalDigits: 2)
+          .format(double.parse(number));
+    } catch (e) {
+      return number;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -167,7 +185,7 @@ class _WalletScreenState extends State<WalletScreen> {
                     onPressed: () {
                       setState(() {
                         _isDataLoading = true;
-                        getMyWallet();
+                        getMyOrders();
                       });
                     },
                     child: Icon(
@@ -185,27 +203,25 @@ class _WalletScreenState extends State<WalletScreen> {
                 ? Center(
                     child: CircularProgressIndicator(),
                   )
-                : wallet.length == 0
-                    ? const Text('No Wallet Found!!!')
+                : order.length == 0
+                    ? const Text('No Order Found!!!')
                     : ListView.builder(
                         shrinkWrap: true,
                         physics: NeverScrollableScrollPhysics(),
-                        itemCount: wallet.length,
+                        itemCount: order.length,
                         itemBuilder: (context, index) {
-                          return WalletCard(
-                              orderNumber: wallet[index].orderNumber.toString(),
-                              creditDate: wallet[index].creditDate.toString(),
-                              collectedAmount:
-                                  wallet[index].collectedAmount.toString(),
-                              actualAmount:
-                                  wallet[index].actualAmount.toString(),
-                              commissionAmount:
-                                  wallet[index].commissionAmount.toString(),
-                              withdrawalStatus:
-                                  wallet[index].withdrawalStatus.toString(),
-                              isSelected: _selectedList[index],
-                              onSelectCard: (isSelected) =>
-                                  _handleCardSelection(index, isSelected));
+                          return OrderCardWidget(
+                              orderNumber: order[index].orderNumber.toString(),
+                              userName: order[index].userName.toString(),
+                              orderDate: order[index].orderDate.toString(),
+                              orderStatus: order[index].orderStatus.toString(),
+                              contentType: order[index].contentType.toString(),
+                              contentTitle: order[index].title.toString(),
+                              orderAmount: formatNumber(
+                                  order[index].orderAmount.toString()),
+                              paymentId:
+                                  order[index].orderPaymentId.toString());
+                          ;
                         },
                       )
           ],
