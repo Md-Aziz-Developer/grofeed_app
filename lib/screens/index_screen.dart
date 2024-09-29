@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:grofeed_app/screens/dashboard_screen.dart';
 import 'package:grofeed_app/screens/explore_screen.dart';
+import 'package:grofeed_app/screens/order_screen.dart';
 import 'package:grofeed_app/screens/products_screen.dart';
 import 'package:grofeed_app/screens/setting_screen.dart';
 import 'package:grofeed_app/screens/wallet_screen.dart';
@@ -31,7 +32,7 @@ class _IndexScreenState extends State<IndexScreen> {
 
   final List<Widget> _pages = [
     const DasboardScreen(),
-    const ExploreScreen(),
+    const OrderScreen(),
     const ProductScreen(),
     const WalletScreen(),
     const SettingScreen()
@@ -68,7 +69,7 @@ class _IndexScreenState extends State<IndexScreen> {
             const BottomNavigationBarItem(
                 icon: Icon(Icons.home), label: 'Home'),
             const BottomNavigationBarItem(
-                icon: Icon(Icons.explore_outlined), label: 'Explore'),
+                icon: Icon(Icons.explore_outlined), label: 'Order'),
             const BottomNavigationBarItem(
                 icon: Icon(Icons.add_circle_outline), label: 'Create'),
             const BottomNavigationBarItem(

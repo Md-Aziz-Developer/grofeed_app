@@ -91,13 +91,13 @@ class WalletCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   // Commission Amount
-                  Text(
-                    'Commission: ${commissionAmount}',
-                    style: TextStyle(fontSize: 12, color: Colors.red[400]),
-                  ),
+                  // Text(
+                  //   'Commission: ${commissionAmount}',
+                  //   style: TextStyle(fontSize: 12, color: Colors.red[400]),
+                  // ),
                   // Withdrawal Status
                   Text(
-                    withdrawalStatus.toUpperCase(),
+                    'Withdrawl Status : ${withdrawalStatus.toUpperCase()}',
                     style: TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.bold,
