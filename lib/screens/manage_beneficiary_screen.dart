@@ -2,13 +2,11 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:grofeed_app/constants/api_path.dart';
 import 'package:grofeed_app/controllers/beneficiary_controller.dart';
 import 'package:grofeed_app/models/beneficiary_list_model.dart';
 import 'package:grofeed_app/screens/add_beneficiary.dart';
 import 'package:grofeed_app/screens/index_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:http/http.dart' as http;
 
 class ManageBeneficiary extends StatefulWidget {
   const ManageBeneficiary({super.key});
@@ -96,7 +94,6 @@ class _ManageBeneficiaryState extends State<ManageBeneficiary> {
                 shrinkWrap: true,
                 itemCount: beneficiary.length,
                 itemBuilder: (context, index) {
-                  int myIndex = index + 1;
                   return Container(
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
