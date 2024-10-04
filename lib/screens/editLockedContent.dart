@@ -156,202 +156,211 @@ class _EditLockedContentState extends State<EditLockedContent> {
           elevation: 3,
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Form(
-          key: _formKey,
-          child: ListView(
-            children: [
-              // Title field
-              TextFormField(
-                controller: _titleController,
-                decoration: InputDecoration(
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(16.0),
-                    borderSide: const BorderSide(
-                      color: Colors.white,
-                    ),
-                  ),
-                  labelText: 'Title for locked content',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  hintText: 'Title for locked content',
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter the title';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 16.0),
-
-              DropdownButtonFormField<String>(
-                decoration: InputDecoration(
-                  labelText: 'Category',
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(16.0),
-                    borderSide: const BorderSide(
-                      color: Colors.white,
-                    ),
-                  ),
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(16)),
-                ),
-                value: _selectedCategory,
-                items: _categories.map((String category) {
-                  return DropdownMenuItem<String>(
-                    value: category,
-                    child: Text(category),
-                  );
-                }).toList(),
-                onChanged: (value) {
-                  setState(() {
-                    _selectedCategory = value;
-                  });
-                },
-                validator: (value) {
-                  if (value == null) {
-                    return 'Please select a category';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 16.0),
-
-              TextFormField(
-                controller: _visibleMessageController,
-                maxLines: 3,
-                decoration: InputDecoration(
-                  labelText: 'Visible Message',
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(16.0),
-                    borderSide: const BorderSide(
-                      color: Colors.white,
-                    ),
-                  ),
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(16)),
-                  hintText: 'Visible Message',
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter the visible message';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 16.0),
-
-              // Locked Message field
-              TextFormField(
-                controller: _lockedMessageController,
-                maxLines: 3,
-                decoration: InputDecoration(
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(16.0),
-                    borderSide: const BorderSide(
-                      color: Colors.white,
-                    ),
-                  ),
-                  labelText: 'Locked Message',
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(16)),
-                  hintText: 'Locked Message',
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter the locked message';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 16.0),
-
-              // Amount field
-              TextFormField(
-                controller: _amountController,
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(16.0),
-                    borderSide: const BorderSide(
-                      color: Colors.white,
-                    ),
-                  ),
-                  labelText: 'Amount',
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(16)),
-                  hintText: 'Amount',
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter the amount';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 16.0),
-
-              // File picker
-              ElevatedButton.icon(
-                onPressed: _pickFiles,
-                icon: const Icon(Icons.attach_file),
-                label: const Text('Choose files'),
-              ),
-              if (_pickedFiles != null && _pickedFiles!.isNotEmpty)
-                Padding(
-                  padding: const EdgeInsets.only(top: 8.0),
-                  child: Text('${_pickedFiles!.length} files selected'),
-                ),
-              const SizedBox(height: 16.0),
-
-              _isLoading
-                  ? Container(
-                      margin: const EdgeInsets.only(top: 10),
-                      width: MediaQuery.of(context).size.width * .5,
-                      child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            padding: const EdgeInsets.symmetric(vertical: 10),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
-                            ),
+      body: _isDataLoading
+          ? Center(
+              child: CircularProgressIndicator(),
+            )
+          : Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Form(
+                key: _formKey,
+                child: ListView(
+                  children: [
+                    // Title field
+                    TextFormField(
+                      controller: _titleController,
+                      decoration: InputDecoration(
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(16.0),
+                          borderSide: const BorderSide(
+                            color: Colors.white,
                           ),
-                          onPressed: () {},
-                          child: SizedBox(
-                            height: 20,
-                            width: 20,
-                            child: CircularProgressIndicator(
-                              color: Theme.of(context).colorScheme.secondary,
-                            ),
-                          )),
-                    )
-                  : Container(
-                      margin: const EdgeInsets.only(top: 10),
-                      width: MediaQuery.of(context).size.width * .5,
-                      child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            padding: const EdgeInsets.symmetric(vertical: 10),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                          ),
-                          onPressed: () {
-                            editLockedContent();
-                          },
-                          child: Text(
-                            'Update Locked Content',
-                            style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                color: Theme.of(context).colorScheme.secondary),
-                          )),
+                        ),
+                        labelText: 'Title for locked content',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        hintText: 'Title for locked content',
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter the title';
+                        }
+                        return null;
+                      },
                     ),
-            ],
-          ),
-        ),
-      ),
+                    const SizedBox(height: 16.0),
+
+                    DropdownButtonFormField<String>(
+                      decoration: InputDecoration(
+                        labelText: 'Category',
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(16.0),
+                          borderSide: const BorderSide(
+                            color: Colors.white,
+                          ),
+                        ),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(16)),
+                      ),
+                      value: _selectedCategory,
+                      items: _categories.map((String category) {
+                        return DropdownMenuItem<String>(
+                          value: category,
+                          child: Text(category),
+                        );
+                      }).toList(),
+                      onChanged: (value) {
+                        setState(() {
+                          _selectedCategory = value;
+                        });
+                      },
+                      validator: (value) {
+                        if (value == null) {
+                          return 'Please select a category';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 16.0),
+
+                    TextFormField(
+                      controller: _visibleMessageController,
+                      maxLines: 3,
+                      decoration: InputDecoration(
+                        labelText: 'Visible Message',
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(16.0),
+                          borderSide: const BorderSide(
+                            color: Colors.white,
+                          ),
+                        ),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(16)),
+                        hintText: 'Visible Message',
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter the visible message';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 16.0),
+
+                    // Locked Message field
+                    TextFormField(
+                      controller: _lockedMessageController,
+                      maxLines: 3,
+                      decoration: InputDecoration(
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(16.0),
+                          borderSide: const BorderSide(
+                            color: Colors.white,
+                          ),
+                        ),
+                        labelText: 'Locked Message',
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(16)),
+                        hintText: 'Locked Message',
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter the locked message';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 16.0),
+
+                    // Amount field
+                    TextFormField(
+                      controller: _amountController,
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(16.0),
+                          borderSide: const BorderSide(
+                            color: Colors.white,
+                          ),
+                        ),
+                        labelText: 'Amount',
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(16)),
+                        hintText: 'Amount',
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter the amount';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 16.0),
+
+                    // File picker
+                    ElevatedButton.icon(
+                      onPressed: _pickFiles,
+                      icon: const Icon(Icons.attach_file),
+                      label: const Text('Choose files'),
+                    ),
+                    if (_pickedFiles != null && _pickedFiles!.isNotEmpty)
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: Text('${_pickedFiles!.length} files selected'),
+                      ),
+                    const SizedBox(height: 16.0),
+
+                    _isLoading
+                        ? Container(
+                            margin: const EdgeInsets.only(top: 10),
+                            width: MediaQuery.of(context).size.width * .5,
+                            child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 10),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                ),
+                                onPressed: () {},
+                                child: SizedBox(
+                                  height: 20,
+                                  width: 20,
+                                  child: CircularProgressIndicator(
+                                    color:
+                                        Theme.of(context).colorScheme.secondary,
+                                  ),
+                                )),
+                          )
+                        : Container(
+                            margin: const EdgeInsets.only(top: 10),
+                            width: MediaQuery.of(context).size.width * .5,
+                            child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 10),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                ),
+                                onPressed: () {
+                                  editLockedContent();
+                                },
+                                child: Text(
+                                  'Update Locked Content',
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .secondary),
+                                )),
+                          ),
+                  ],
+                ),
+              ),
+            ),
     );
   }
 }

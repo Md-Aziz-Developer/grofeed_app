@@ -17,7 +17,6 @@ class OtpScreen extends StatefulWidget {
 
 class _OtpScreenState extends State<OtpScreen> {
   bool _isLoading = false;
-  bool _isOtpSend = false;
   int number = 9354367704;
   String type = '';
 

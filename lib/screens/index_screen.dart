@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:grofeed_app/screens/dashboard_screen.dart';
-import 'package:grofeed_app/screens/explore_screen.dart';
 import 'package:grofeed_app/screens/order_screen.dart';
 import 'package:grofeed_app/screens/products_screen.dart';
 import 'package:grofeed_app/screens/setting_screen.dart';
@@ -22,7 +21,6 @@ class _IndexScreenState extends State<IndexScreen> {
   late int _currentIndex;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     setState(() {
       _currentIndex = widget.initialIndex ?? 0;

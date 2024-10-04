@@ -106,7 +106,7 @@ class _OrderScreenState extends State<OrderScreen> {
         child: Column(
           children: [
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
@@ -138,13 +138,13 @@ class _OrderScreenState extends State<OrderScreen> {
                           });
                         }
                       },
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.date_range,
                         color: Colors.white,
                       ),
                       label: Text(
                           '${DateFormat('dd-MM-yyyy').format(fromDate)}',
-                          style: TextStyle(color: Colors.white))),
+                          style: const TextStyle(color: Colors.white))),
                   ElevatedButton.icon(
                       onPressed: () async {
                         DateTime? toDatePicked = await showDatePicker(
@@ -173,13 +173,13 @@ class _OrderScreenState extends State<OrderScreen> {
                           });
                         }
                       },
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.date_range,
                         color: Colors.white,
                       ),
                       label: Text(
                         '${DateFormat('dd-MM-yyyy').format(toDate)}',
-                        style: TextStyle(color: Colors.white),
+                        style: const TextStyle(color: Colors.white),
                       )),
                   ElevatedButton(
                     onPressed: () {
@@ -188,7 +188,7 @@ class _OrderScreenState extends State<OrderScreen> {
                         getMyOrders();
                       });
                     },
-                    child: Icon(
+                    child: const Icon(
                       Icons.search,
                       color: Colors.white,
                     ),
@@ -196,18 +196,18 @@ class _OrderScreenState extends State<OrderScreen> {
                 ],
               ),
             ),
-            Divider(
+            const Divider(
               height: 10,
             ),
             _isDataLoading
-                ? Center(
+                ? const Center(
                     child: CircularProgressIndicator(),
                   )
                 : order.length == 0
                     ? const Text('No Order Found!!!')
                     : ListView.builder(
                         shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
+                        physics: const NeverScrollableScrollPhysics(),
                         itemCount: order.length,
                         itemBuilder: (context, index) {
                           return OrderCardWidget(
@@ -221,7 +221,6 @@ class _OrderScreenState extends State<OrderScreen> {
                                   order[index].orderAmount.toString()),
                               paymentId:
                                   order[index].orderPaymentId.toString());
-                          ;
                         },
                       )
           ],

@@ -1,7 +1,4 @@
 import 'dart:convert';
-import 'dart:math';
-
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:grofeed_app/constants/api_path.dart';
 import 'package:grofeed_app/models/dasboard_data_model.dart';
@@ -130,7 +127,7 @@ class _DasboardScreenState extends State<DasboardScreen> {
                   flex: 1,
                   child: Container(
                     decoration: BoxDecoration(
-                      color: Color.fromRGBO(66, 66, 66, 1),
+                      color: const Color.fromRGBO(66, 66, 66, 1),
                       border: Border.all(width: 1),
                       borderRadius:
                           const BorderRadius.all(Radius.circular(8.0)),
@@ -170,7 +167,7 @@ class _DasboardScreenState extends State<DasboardScreen> {
                   flex: 1,
                   child: Container(
                     decoration: BoxDecoration(
-                      color: Color.fromRGBO(66, 66, 66, 1),
+                      color: const Color.fromRGBO(66, 66, 66, 1),
                       border: Border.all(width: 1),
                       borderRadius:
                           const BorderRadius.all(Radius.circular(8.0)),
@@ -220,7 +217,7 @@ class _DasboardScreenState extends State<DasboardScreen> {
                   flex: 1,
                   child: Container(
                     decoration: BoxDecoration(
-                      color: Color.fromRGBO(66, 66, 66, 1),
+                      color: const Color.fromRGBO(66, 66, 66, 1),
                       border: Border.all(width: 1),
                       borderRadius:
                           const BorderRadius.all(Radius.circular(8.0)),
@@ -260,7 +257,7 @@ class _DasboardScreenState extends State<DasboardScreen> {
                   flex: 1,
                   child: Container(
                     decoration: BoxDecoration(
-                      color: Color.fromRGBO(66, 66, 66, 1),
+                      color: const Color.fromRGBO(66, 66, 66, 1),
                       border: Border.all(width: 1),
                       borderRadius:
                           const BorderRadius.all(Radius.circular(8.0)),
@@ -299,8 +296,8 @@ class _DasboardScreenState extends State<DasboardScreen> {
               ],
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
             child: Align(
               alignment: Alignment.centerLeft,
               child: Text(
@@ -309,25 +306,29 @@ class _DasboardScreenState extends State<DasboardScreen> {
               ),
             ),
           ),
-          ListView.builder(
-            // scrollDirection: Axis.vertical,
-            // physics: ,
-            physics: NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            itemCount: order.length,
-            itemBuilder: (context, index) {
-              return OrderCardWidget(
-                  orderNumber: order[index].orderNumber.toString(),
-                  userName: order[index].userName.toString(),
-                  orderDate: order[index].orderDate.toString(),
-                  orderStatus: order[index].orderStatus.toString(),
-                  contentType: order[index].contentType.toString(),
-                  contentTitle: order[index].title.toString(),
-                  orderAmount:
-                      formatNumber(order[index].orderAmount.toString()),
-                  paymentId: order[index].orderPaymentId.toString());
-            },
-          )
+          _isDataLoading
+              ? Center(
+                  child: CircularProgressIndicator(),
+                )
+              : ListView.builder(
+                  // scrollDirection: Axis.vertical,
+                  // physics: ,
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: order.length,
+                  itemBuilder: (context, index) {
+                    return OrderCardWidget(
+                        orderNumber: order[index].orderNumber.toString(),
+                        userName: order[index].userName.toString(),
+                        orderDate: order[index].orderDate.toString(),
+                        orderStatus: order[index].orderStatus.toString(),
+                        contentType: order[index].contentType.toString(),
+                        contentTitle: order[index].title.toString(),
+                        orderAmount:
+                            formatNumber(order[index].orderAmount.toString()),
+                        paymentId: order[index].orderPaymentId.toString());
+                  },
+                )
         ]),
       ),
     );
