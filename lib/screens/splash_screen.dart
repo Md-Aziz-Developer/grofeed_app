@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:grofeed_app/constants/api_path.dart';
 import 'package:grofeed_app/screens/index_screen.dart';
-import 'package:grofeed_app/screens/login_screen.dart';
 import 'package:grofeed_app/screens/onboarding_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
@@ -21,9 +20,6 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    // Future.delayed(const Duration(seconds: 2), () {
-    //   Get.offAll(() => const LoginScreen());
-    // });
     checkPartner();
   }
 
