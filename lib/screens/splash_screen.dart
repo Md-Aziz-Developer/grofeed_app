@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:grofeed_app/constants/api_path.dart';
 import 'package:grofeed_app/screens/index_screen.dart';
 import 'package:grofeed_app/screens/login_screen.dart';
+import 'package:grofeed_app/screens/onboarding_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
@@ -44,12 +45,12 @@ class _SplashScreenState extends State<SplashScreen> {
           prefs.setString('partner', jsonEncode(partner));
           Get.offAll(() => const IndexScreen());
         } else {
-          Get.offAll(() => const LoginScreen());
+          Get.offAll(() => const OnboardingScreen());
         }
       }
     } else {
       Future.delayed(const Duration(seconds: 1), () {
-        Get.offAll(() => const LoginScreen());
+        Get.offAll(() => const OnboardingScreen());
       });
     }
   }
@@ -57,14 +58,11 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Image.asset(
-          'assets/images/splash_screen.png',
-          scale: 1,
-          fit: BoxFit.cover,
-          width: double.infinity,
-          height: MediaQuery.of(context).size.height,
-        ),
+      body: Image.asset(
+        'assets/images/splash_screen.png',
+        fit: BoxFit.cover,
+        width: double.infinity,
+        height: MediaQuery.of(context).size.height,
       ),
     );
   }

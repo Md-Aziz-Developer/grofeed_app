@@ -78,10 +78,10 @@ class _LoginScreenState extends State<LoginScreen> {
             const SizedBox(
               height: 30,
             ),
-            const Center(
+            Center(
               child: Padding(
-                padding: EdgeInsets.only(left: 15),
-                child: Text(
+                padding: const EdgeInsets.only(left: 15),
+                child: const Text(
                   'NOW LAUNCH YOUR',
                   style: TextStyle(
                       color: Color.fromRGBO(232, 99, 153, 1),
@@ -93,10 +93,10 @@ class _LoginScreenState extends State<LoginScreen> {
             const SizedBox(
               height: 5,
             ),
-            const Center(
+            Center(
               child: Padding(
-                padding: EdgeInsets.only(left: 15),
-                child: Text(
+                padding: const EdgeInsets.only(left: 15),
+                child: const Text(
                   'OWN COMMUNITY APP',
                   style: TextStyle(
                       color: Color.fromRGBO(88, 138, 237, 1),
@@ -108,9 +108,9 @@ class _LoginScreenState extends State<LoginScreen> {
             const SizedBox(
               height: 10,
             ),
-            const Padding(
-              padding: EdgeInsets.only(left: 15),
-              child: Text(
+            Padding(
+              padding: const EdgeInsets.only(left: 15),
+              child: const Text(
                 'Login Your Account Now',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
               ),
@@ -193,10 +193,10 @@ class _LoginScreenState extends State<LoginScreen> {
               ],
             ),
             const Spacer(),
-            const Center(
+            Center(
                 child: Text(
                     'By continuing you agree to our Terms & Privacy Policy')),
-            const SizedBox(
+            SizedBox(
               height: 10,
             )
           ],

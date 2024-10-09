@@ -24,9 +24,11 @@ class MyApp extends StatelessWidget {
       darkTheme: ThemeData(
           colorScheme: ColorScheme.fromSwatch().copyWith(
               brightness: Brightness.dark,
-              primary: Color.fromRGBO(232, 99, 153, 1),
+              primary: Color.fromRGBO(94, 94, 229, 1),
               secondary: Colors.white,
-              background: const Color.fromRGBO(50, 51, 53, 1)),
+              background: const Color.fromRGBO(47, 59, 78, 1)),
+          hintColor: Color.fromRGBO(94, 94, 229, 1),
+          scaffoldBackgroundColor: const Color.fromRGBO(47, 59, 78, 1),
           hoverColor: Colors.white),
       theme: ThemeData(
         textTheme: GoogleFonts.poppinsTextTheme(),
