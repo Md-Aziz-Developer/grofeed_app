@@ -120,13 +120,16 @@ class _OrderScreenState extends State<OrderScreen> {
                           builder: (context, child) {
                             return Theme(
                               data: Theme.of(context).copyWith(
-                                colorScheme: const ColorScheme.dark(
-                                  primary: Color.fromRGBO(
-                                      232, 99, 153, 1), // <-- SEE HERE
+                                colorScheme: ColorScheme.light(
+                                  primary:
+                                      Theme.of(context).colorScheme.primary,
                                   onPrimary: Colors.white,
-                                  surface: Colors.black, // <-- SEE HERE
-                                  onSurface: Colors.white, // <-- SEE HERE
+                                  surface: Colors.white,
+                                  onSurface: Colors.black,
                                 ),
+
+                                dialogBackgroundColor:
+                                    Colors.white, // Dialog background
                               ),
                               child: child!,
                             );
@@ -155,13 +158,16 @@ class _OrderScreenState extends State<OrderScreen> {
                           builder: (context, child) {
                             return Theme(
                               data: Theme.of(context).copyWith(
-                                colorScheme: const ColorScheme.dark(
-                                  primary: Color.fromRGBO(
-                                      232, 99, 153, 1), // <-- SEE HERE
+                                colorScheme: ColorScheme.light(
+                                  primary:
+                                      Theme.of(context).colorScheme.primary,
                                   onPrimary: Colors.white,
-                                  surface: Colors.black, // <-- SEE HERE
-                                  onSurface: Colors.white, // <-- SEE HERE
+                                  surface: Colors.white,
+                                  onSurface: Colors.black,
                                 ),
+
+                                dialogBackgroundColor:
+                                    Colors.white, // Dialog background
                               ),
                               child: child!,
                             );

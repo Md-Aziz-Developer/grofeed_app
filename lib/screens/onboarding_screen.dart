@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:grofeed_app/screens/login_screen.dart';
-import 'package:introduction_screen/introduction_screen.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -11,81 +11,93 @@ class OnboardingScreen extends StatefulWidget {
 }
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
+  final PageController _pageController = PageController();
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: IntroductionScreen(
-      pages: [
-        PageViewModel(
-          title: "Welcome To Grofeed",
-          body: 'Grofeed',
-          image: Image.asset(
-            'assets/images/WELCOME_PAGE_IMAGE_1.png',
-            width: double.infinity,
-            fit: BoxFit.cover,
+    return Scaffold(
+      body: Stack(
+        children: [
+          PageView(
+            controller: _pageController,
+            children: [
+              buildPage(
+                title: 'Welcome!',
+                description: 'This is the first intro screen.',
+                imagePath: 'assets/images/WELCOME_PAGE_IMAGE_1.png',
+                color: Colors.blueAccent,
+              ),
+              buildPage(
+                title: 'Discover!',
+                description: 'This is the second intro screen.',
+                imagePath: 'assets/images/WELCOME_PAGE_IMAGE_2.png',
+                color: Colors.greenAccent,
+              ),
+              buildPage(
+                title: 'Get Started!',
+                description: 'This is the third intro screen.',
+                imagePath: 'assets/images/WELCOME_PAGE_IMAGE_3.png',
+                color: Colors.orangeAccent,
+              ),
+            ],
           ),
-          decoration: getPageDecoration(),
-        ),
-        PageViewModel(
-          title: "Welcome To Grofeed",
-          body: 'Grofeed',
-          image: Image.asset(
-            'assets/images/WELCOME_PAGE_IMAGE_2.png',
-            width: MediaQuery.of(context).size.width * .90,
-            height: MediaQuery.of(context).size.height * .90,
-            fit: BoxFit.cover,
-          ),
-          decoration: getPageDecoration(),
-        ),
-        PageViewModel(
-          title: "Welcome To Grofeed",
-          body: 'Grofeed',
-          image: Center(
-            child: Image.asset(
-              'assets/images/WELCOME_PAGE_IMAGE_3.png',
-              width: double.infinity,
-              fit: BoxFit.contain,
+          Positioned(
+            bottom: 20,
+            left: 0,
+            right: 0,
+            child: Column(
+              children: [
+                SmoothPageIndicator(
+                  controller: _pageController, // Page controller
+                  count: 3, // Number of pages
+                  effect: WormEffect(
+                    activeDotColor: Colors.white,
+                    dotColor: Colors.grey,
+                    dotHeight: 10,
+                    dotWidth: 10,
+                  ),
+                ),
+                SizedBox(height: 20),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Get.offAll(LoginScreen());
+                    },
+                    style: ElevatedButton.styleFrom(
+                      padding: EdgeInsets.all(15),
+                      minimumSize: Size(double.infinity, 50),
+                    ),
+                    child: Text('Get Started'),
+                  ),
+                ),
+              ],
             ),
           ),
-          decoration: getPageDecoration(),
-        ),
-      ],
-      done: Text(
-        'Done',
-        style: TextStyle(fontWeight: FontWeight.w600, color: Colors.white),
+        ],
       ),
-      onDone: () {
-        Get.offAll(() => LoginScreen());
-      },
-      showSkipButton: true,
-      skip: Text(
-        'Skip',
-        style: TextStyle(color: Colors.white),
-      ),
-      onSkip: () {
-        Get.off(() => LoginScreen());
-      },
-      next: Icon(
-        Icons.arrow_forward,
-        color: Colors.white,
-      ),
-      dotsDecorator: getDotDecoration(),
-    ));
+    );
   }
 
-  DotsDecorator getDotDecoration() => DotsDecorator(
-        color: Color(0xFFBDBDBD),
-        activeColor: Color.fromRGBO(232, 99, 153, 1),
-        size: Size(10, 10),
-        activeSize: Size(22, 10),
-        activeShape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(24),
-        ),
-      );
-  PageDecoration getPageDecoration() => PageDecoration(
-      imageFlex: 100,
-      titlePadding: EdgeInsets.zero,
-      imagePadding: EdgeInsets.zero,
-      footerPadding: EdgeInsets.zero,
-      bodyPadding: EdgeInsets.zero);
+// Widget to build each intro page
+  Widget buildPage({
+    required String title,
+    required String description,
+    required String imagePath,
+    required Color color,
+  }) {
+    return Container(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Image.asset(
+            imagePath,
+            scale: 1,
+            fit: BoxFit.cover,
+            width: double.infinity,
+            height: MediaQuery.of(context).size.height,
+          ), // Use your own images here
+        ],
+      ),
+    );
+  }
 }

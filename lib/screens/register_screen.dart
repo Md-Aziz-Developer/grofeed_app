@@ -145,17 +145,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
               margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
               padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
               decoration: BoxDecoration(
-                  border: Border.all(color: Colors.white, width: 1),
+                  color: Colors.white,
+                  border: Border.all(color: Colors.black, width: 1),
                   borderRadius: BorderRadius.circular(25)),
               child: TextFormField(
                 controller: _name,
                 keyboardType: TextInputType.text,
-                decoration: const InputDecoration(
-                    icon: Icon(Icons.abc_sharp),
+                decoration: InputDecoration(
+                    icon: Icon(Icons.abc_sharp,
+                        color: Theme.of(context).colorScheme.primary),
                     border: InputBorder.none,
                     label: Text('Full Name'),
                     hintText: 'Enter Full Name'),
-                style: const TextStyle(fontSize: 14),
+                style: const TextStyle(fontSize: 14, color: Colors.black),
                 validator: (value) {
                   if (value != null && value.isEmpty) {
                     return "Name is required!!!";
@@ -170,17 +172,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
               margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
               padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
               decoration: BoxDecoration(
-                  border: Border.all(color: Colors.white, width: 1),
+                  color: Colors.white,
+                  border: Border.all(color: Colors.black, width: 1),
                   borderRadius: BorderRadius.circular(25)),
               child: TextFormField(
                 controller: _email,
                 keyboardType: TextInputType.emailAddress,
-                decoration: const InputDecoration(
-                    icon: Icon(Icons.email),
+                decoration: InputDecoration(
+                    icon: Icon(Icons.email,
+                        color: Theme.of(context).colorScheme.primary),
                     border: InputBorder.none,
                     label: Text('Your Email'),
                     hintText: 'Enter Your Email'),
-                style: const TextStyle(fontSize: 14),
+                style: const TextStyle(fontSize: 14, color: Colors.black),
                 validator: (value) {
                   if (value != null && value.isEmpty) {
                     return "Email Id is required!!!";
@@ -195,17 +199,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
               margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
               padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
               decoration: BoxDecoration(
-                  border: Border.all(color: Colors.white, width: 1),
+                  color: Colors.white,
+                  border: Border.all(color: Colors.black, width: 1),
                   borderRadius: BorderRadius.circular(25)),
               child: TextFormField(
                 controller: _number,
                 keyboardType: TextInputType.number,
-                decoration: const InputDecoration(
-                    icon: Icon(Icons.numbers),
+                decoration: InputDecoration(
+                    icon: Icon(Icons.numbers,
+                        color: Theme.of(context).colorScheme.primary),
                     border: InputBorder.none,
                     label: Text('Mobile Number'),
                     hintText: '+91'),
-                style: const TextStyle(fontSize: 14),
+                style: const TextStyle(fontSize: 14, color: Colors.black),
                 validator: (value) {
                   if (value != null && value.isEmpty) {
                     return "Number is required!!!";
@@ -220,17 +226,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
               margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
               padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
               decoration: BoxDecoration(
-                  border: Border.all(color: Colors.white, width: 1),
+                  color: Colors.white,
+                  border: Border.all(color: Colors.black, width: 1),
                   borderRadius: BorderRadius.circular(25)),
               child: TextFormField(
                 controller: _username,
                 keyboardType: TextInputType.text,
-                decoration: const InputDecoration(
-                    icon: Icon(Icons.abc_sharp),
+                decoration: InputDecoration(
+                    icon: Icon(Icons.abc_sharp,
+                        color: Theme.of(context).colorScheme.primary),
                     border: InputBorder.none,
                     label: Text('Username '),
                     hintText: 'Enter your username'),
-                style: const TextStyle(fontSize: 14),
+                style: const TextStyle(fontSize: 14, color: Colors.black),
                 validator: (value) {
                   if (value != null && value.isEmpty) {
                     return "Username is required!!!";
@@ -250,26 +258,39 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   top: 15, left: 15, right: 15, bottom: 3),
               padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
               decoration: BoxDecoration(
-                  border: Border.all(color: Colors.white, width: 1),
+                  color: Colors.white,
+                  border: Border.all(color: Colors.black, width: 1),
                   borderRadius: BorderRadius.circular(25)),
-              child: DropdownButtonFormField<String>(
-                value: _selectedItems.isNotEmpty ? _selectedItems : null,
-                items: _items.map((item) {
-                  return DropdownMenuItem<String>(
-                    value: item,
-                    child: Text(item),
-                  );
-                }).toList(),
-                onChanged: (value) {
-                  setState(() {
-                    _selectedItems = value!;
-                  });
-                },
-                isExpanded: true,
-                hint: const Text('Select your options'),
-                decoration: const InputDecoration(
-                  border: InputBorder.none,
-                  icon: Icon(Icons.check_box_outline_blank_sharp),
+              child: Theme(
+                data: Theme.of(context).copyWith(
+                  canvasColor: Colors.white,
+                ),
+                child: DropdownButtonFormField<String>(
+                  value: _selectedItems.isNotEmpty ? _selectedItems : null,
+                  items: _items.map((item) {
+                    return DropdownMenuItem<String>(
+                      value: item,
+                      child: Text(item,
+                          style: TextStyle(
+                              color: Theme.of(context).colorScheme.primary)),
+                    );
+                  }).toList(),
+                  onChanged: (value) {
+                    setState(() {
+                      _selectedItems = value!;
+                    });
+                  },
+                  isExpanded: true,
+                  hint: Text(
+                    'Select your options',
+                    style:
+                        TextStyle(color: Theme.of(context).colorScheme.primary),
+                  ),
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    icon: Icon(Icons.check_box_outline_blank_sharp,
+                        color: Theme.of(context).colorScheme.primary),
+                  ),
                 ),
               ),
             ),
