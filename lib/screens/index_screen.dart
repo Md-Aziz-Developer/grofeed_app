@@ -6,6 +6,7 @@ import 'package:grofeed_app/screens/order_screen.dart';
 import 'package:grofeed_app/screens/products_screen.dart';
 import 'package:grofeed_app/screens/setting_screen.dart';
 import 'package:grofeed_app/screens/wallet_screen.dart';
+import 'package:grofeed_app/wallet_overview_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class IndexScreen extends StatefulWidget {
@@ -32,7 +33,7 @@ class _IndexScreenState extends State<IndexScreen> {
     const DasboardScreen(),
     const OrderScreen(),
     const ProductScreen(),
-    const WalletScreen(),
+    const WalletOverviewScreen(),
     const SettingScreen()
   ];
 

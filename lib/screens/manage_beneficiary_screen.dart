@@ -51,7 +51,6 @@ class _ManageBeneficiaryState extends State<ManageBeneficiary> {
       setState(() {
         _isDataLoading = false;
       });
-      print(beneficiary);
     } else {
       setState(() {
         _isDataLoading = false;
