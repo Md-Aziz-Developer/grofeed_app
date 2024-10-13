@@ -1,8 +1,10 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:grofeed_app/controllers/wallet_controller.dart';
 import 'package:grofeed_app/models/wallet_list_model.dart';
+import 'package:grofeed_app/screens/index_screen.dart';
 import 'package:grofeed_app/widgets/wallet_card_widget.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -82,6 +84,16 @@ class _WalletScreenState extends State<WalletScreen> {
             height: 50,
           ),
           elevation: 3,
+          leading: IconButton(
+              onPressed: () {
+                Get.offAll(() => const IndexScreen(
+                      initialIndex: 3,
+                    ));
+              },
+              icon: const Icon(
+                Icons.arrow_back_ios_new,
+                color: Colors.white,
+              )),
         ),
       ),
       body: SingleChildScrollView(
