@@ -18,7 +18,6 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     checkPartner();
   }
@@ -26,7 +25,6 @@ class _SplashScreenState extends State<SplashScreen> {
   void checkPartner() async {
     final prefs = await SharedPreferences.getInstance();
     if (prefs.containsKey('partner_id')) {
-      print(prefs.getString('partner_id').toString());
       final partnerId = jsonDecode(prefs.getString('partner_id').toString());
       final response = await http.post(
           Uri.parse(BASE_PATH + GET_LOGGED_IN_USER),

@@ -204,26 +204,26 @@ class _WalletOverviewScreenState extends State<WalletOverviewScreen> {
   void showBeneficiaryModel(BuildContext context) {
     showModalBottomSheet(
       context: context,
-      shape: RoundedRectangleBorder(
+      shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
       builder: (BuildContext context) {
         return Container(
           height: MediaQuery.of(context).size.height * .45,
-          padding: EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text(
+              const Text(
                 'Select Account',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Expanded(
                 child: ListView.separated(
                   itemCount: beneficiary.length,
                   separatorBuilder: (BuildContext context, int index) {
-                    return SizedBox(height: 3);
+                    return const SizedBox(height: 3);
                   },
                   itemBuilder: (BuildContext context, int index) {
                     return Container(
@@ -331,10 +331,10 @@ class _WalletOverviewScreenState extends State<WalletOverviewScreen> {
           actions: [
             GestureDetector(
               onTap: () {
-                Get.to(() => WalletScreen());
+                Get.to(() => const WalletScreen());
               },
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
+              child: const Padding(
+                padding: EdgeInsets.all(8.0),
                 child: Icon(
                   Icons.history,
                   color: Colors.white,
@@ -350,94 +350,98 @@ class _WalletOverviewScreenState extends State<WalletOverviewScreen> {
             )
           : SingleChildScrollView(
               child: Column(children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    'Once you redeem it, the credit will be processed within 24 hours',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                ),
                 Container(
                   margin:
                       const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
                   decoration:
                       BoxDecoration(borderRadius: BorderRadius.circular(10)),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Expanded(
-                        flex: 1,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: const Color.fromRGBO(66, 66, 66, 1),
-                            border: Border.all(width: 1),
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(8.0)),
-                          ),
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 8, horizontal: 10),
-                          margin: const EdgeInsets.all(3),
-                          child: Column(
-                            children: [
-                              const Text(
-                                'Total \r\nAmount',
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w700),
-                                textAlign: TextAlign.center,
-                              ),
-                              const SizedBox(
-                                height: 5,
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    formatNumber(totalAmount),
-                                    style: const TextStyle(
-                                        fontSize: 14,
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ],
-                              )
-                            ],
-                          ),
+                      Container(
+                        width: MediaQuery.of(context).size.width * .42,
+                        decoration: BoxDecoration(
+                          color: const Color.fromRGBO(106, 140, 107, 1),
+                          border: Border.all(width: 1, color: Colors.white),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(8.0)),
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 8, horizontal: 10),
+                        margin: const EdgeInsets.all(3),
+                        child: Column(
+                          children: [
+                            const Text(
+                              'Total \r\nAmount',
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w700),
+                              textAlign: TextAlign.center,
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  formatNumber(totalAmount),
+                                  style: const TextStyle(
+                                      fontSize: 14,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            )
+                          ],
                         ),
                       ),
-                      Expanded(
-                        flex: 1,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: const Color.fromRGBO(66, 66, 66, 1),
-                            border: Border.all(width: 1),
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(8.0)),
-                          ),
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 8, horizontal: 10),
-                          margin: const EdgeInsets.all(3),
-                          child: Column(
-                            children: [
-                              const Text(
-                                'Available\r\n Amount',
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w700),
-                                textAlign: TextAlign.center,
-                              ),
-                              const SizedBox(
-                                height: 5,
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    formatNumber(availableAmount),
-                                    style: const TextStyle(
-                                        fontSize: 14,
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ],
-                              )
-                            ],
-                          ),
+                      Container(
+                        width: MediaQuery.of(context).size.width * .42,
+                        decoration: BoxDecoration(
+                          color: const Color.fromRGBO(106, 140, 107, 1),
+                          border: Border.all(width: 1, color: Colors.white),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(8.0)),
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 8, horizontal: 10),
+                        margin: const EdgeInsets.all(3),
+                        child: Column(
+                          children: [
+                            const Text(
+                              'Available\r\n Amount',
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w700),
+                              textAlign: TextAlign.center,
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  formatNumber(availableAmount),
+                                  style: const TextStyle(
+                                      fontSize: 14,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            )
+                          ],
                         ),
                       ),
                     ],
@@ -450,88 +454,84 @@ class _WalletOverviewScreenState extends State<WalletOverviewScreen> {
                   decoration:
                       BoxDecoration(borderRadius: BorderRadius.circular(10)),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Expanded(
-                        flex: 1,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: const Color.fromRGBO(66, 66, 66, 1),
-                            border: Border.all(width: 1),
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(8.0)),
-                          ),
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 8, horizontal: 10),
-                          margin: const EdgeInsets.all(3),
-                          child: Column(
-                            children: [
-                              const Text(
-                                'Requested\r\n Amount',
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w700),
-                                textAlign: TextAlign.center,
-                              ),
-                              const SizedBox(
-                                height: 5,
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    formatNumber(requestedAmount.toString()),
-                                    style: const TextStyle(
-                                        fontSize: 14,
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ],
-                              )
-                            ],
-                          ),
+                      Container(
+                        width: MediaQuery.of(context).size.width * .42,
+                        decoration: BoxDecoration(
+                          color: const Color.fromRGBO(106, 140, 107, 1),
+                          border: Border.all(width: 1, color: Colors.white),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(8.0)),
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 8, horizontal: 10),
+                        margin: const EdgeInsets.all(3),
+                        child: Column(
+                          children: [
+                            const Text(
+                              'Requested\r\n Amount',
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w700),
+                              textAlign: TextAlign.center,
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  formatNumber(requestedAmount.toString()),
+                                  style: const TextStyle(
+                                      fontSize: 14,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            )
+                          ],
                         ),
                       ),
-                      Expanded(
-                        flex: 1,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: const Color.fromRGBO(66, 66, 66, 1),
-                            border: Border.all(width: 1),
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(8.0)),
-                          ),
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 8, horizontal: 10),
-                          margin: const EdgeInsets.all(3),
-                          child: Column(
-                            children: [
-                              const Text(
-                                'Withdrawal \r\nAmount',
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w700),
-                                textAlign: TextAlign.center,
-                              ),
-                              const SizedBox(
-                                height: 5,
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    formatNumber(withdrawalAmount.toString()),
-                                    style: const TextStyle(
-                                        fontSize: 14,
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ],
-                              )
-                            ],
-                          ),
+                      Container(
+                        width: MediaQuery.of(context).size.width * .42,
+                        decoration: BoxDecoration(
+                          color: const Color.fromRGBO(106, 140, 107, 1),
+                          border: Border.all(width: 1, color: Colors.white),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(8.0)),
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 8, horizontal: 10),
+                        margin: const EdgeInsets.all(3),
+                        child: Column(
+                          children: [
+                            const Text(
+                              'Withdrawal \r\nAmount',
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w700),
+                              textAlign: TextAlign.center,
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  formatNumber(withdrawalAmount.toString()),
+                                  style: const TextStyle(
+                                      fontSize: 14,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            )
+                          ],
                         ),
                       ),
                     ],
@@ -547,10 +547,10 @@ class _WalletOverviewScreenState extends State<WalletOverviewScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Container(
-                        width: MediaQuery.of(context).size.width * .5,
+                        width: MediaQuery.of(context).size.width * .47,
                         decoration: BoxDecoration(
-                          color: const Color.fromRGBO(66, 66, 66, 1),
-                          border: Border.all(width: 1),
+                          color: const Color.fromRGBO(201, 124, 153, 1),
+                          border: Border.all(width: 1, color: Colors.white),
                           borderRadius:
                               const BorderRadius.all(Radius.circular(8.0)),
                         ),
