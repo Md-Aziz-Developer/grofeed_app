@@ -13,8 +13,8 @@ class MyApp extends StatelessWidget {
   MyApp({super.key});
   final List<GetPage> _pages = [
     GetPage(name: '/', page: () => const SplashScreen()),
-    GetPage(name: '/host_live_event', page: () => HostLiveEvent()),
-    GetPage(name: '/locked_content', page: () => LockedContentScreen())
+    GetPage(name: '/host_live_event', page: () => const HostLiveEvent()),
+    GetPage(name: '/locked_content', page: () => const LockedContentScreen())
   ];
   // This widget is the root of your application.
   @override
@@ -24,10 +24,10 @@ class MyApp extends StatelessWidget {
       darkTheme: ThemeData(
           colorScheme: ColorScheme.fromSwatch().copyWith(
               brightness: Brightness.dark,
-              primary: Color.fromRGBO(94, 94, 229, 1),
+              primary: const Color.fromRGBO(94, 94, 229, 1),
               secondary: Colors.white,
               background: const Color.fromRGBO(47, 59, 78, 1)),
-          hintColor: Color.fromRGBO(94, 94, 229, 1),
+          hintColor: const Color.fromRGBO(94, 94, 229, 1),
           scaffoldBackgroundColor: const Color.fromRGBO(47, 59, 78, 1),
           hoverColor: Colors.white),
       theme: ThemeData(

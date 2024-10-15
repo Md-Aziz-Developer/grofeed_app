@@ -78,13 +78,13 @@ class _LoginScreenState extends State<LoginScreen> {
             const SizedBox(
               height: 30,
             ),
-            Center(
+            const Center(
               child: Padding(
-                padding: const EdgeInsets.only(left: 15),
-                child: const Text(
+                padding: EdgeInsets.only(left: 15),
+                child: Text(
                   'NOW LAUNCH YOUR',
                   style: TextStyle(
-                      color: Color.fromRGBO(232, 99, 153, 1),
+                      color: Colors.white,
                       fontSize: 30,
                       fontWeight: FontWeight.w700),
                 ),
@@ -93,10 +93,10 @@ class _LoginScreenState extends State<LoginScreen> {
             const SizedBox(
               height: 5,
             ),
-            Center(
+            const Center(
               child: Padding(
-                padding: const EdgeInsets.only(left: 15),
-                child: const Text(
+                padding: EdgeInsets.only(left: 15),
+                child: Text(
                   'OWN COMMUNITY APP',
                   style: TextStyle(
                       color: Color.fromRGBO(88, 138, 237, 1),
@@ -108,9 +108,9 @@ class _LoginScreenState extends State<LoginScreen> {
             const SizedBox(
               height: 10,
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: 15),
-              child: const Text(
+            const Padding(
+              padding: EdgeInsets.only(left: 15),
+              child: Text(
                 'Login Your Account Now',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
               ),
@@ -193,10 +193,10 @@ class _LoginScreenState extends State<LoginScreen> {
               ],
             ),
             const Spacer(),
-            Center(
+            const Center(
                 child: Text(
                     'By continuing you agree to our Terms & Privacy Policy')),
-            SizedBox(
+            const SizedBox(
               height: 10,
             )
           ],
