@@ -242,8 +242,7 @@ class _WalletOverviewScreenState extends State<WalletOverviewScreen> {
                             'Account Number: ${beneficiary[index].accountNumber}'),
                         onTap: () {
                           redeemNow(beneficiary[index].benificeryId.toString());
-                          Navigator.pop(
-                              context); // Close the modal after selection
+                          Navigator.pop(context);
                         },
                       ),
                     );
