@@ -100,7 +100,7 @@ class _WalletScreenState extends State<WalletScreen> {
         child: Column(
           children: [
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
@@ -135,13 +135,12 @@ class _WalletScreenState extends State<WalletScreen> {
                           });
                         }
                       },
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.date_range,
                         color: Colors.white,
                       ),
-                      label: Text(
-                          '${DateFormat('dd-MM-yyyy').format(fromDate)}',
-                          style: TextStyle(color: Colors.white))),
+                      label: Text(DateFormat('dd-MM-yyyy').format(fromDate),
+                          style: const TextStyle(color: Colors.white))),
                   ElevatedButton.icon(
                       onPressed: () async {
                         DateTime? toDatePicked = await showDatePicker(
@@ -173,13 +172,13 @@ class _WalletScreenState extends State<WalletScreen> {
                           });
                         }
                       },
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.date_range,
                         color: Colors.white,
                       ),
                       label: Text(
                         '${DateFormat('dd-MM-yyyy').format(toDate)}',
-                        style: TextStyle(color: Colors.white),
+                        style: const TextStyle(color: Colors.white),
                       )),
                   ElevatedButton(
                     onPressed: () {
@@ -188,7 +187,7 @@ class _WalletScreenState extends State<WalletScreen> {
                         getMyWallet();
                       });
                     },
-                    child: Icon(
+                    child: const Icon(
                       Icons.search,
                       color: Colors.white,
                     ),
@@ -196,18 +195,18 @@ class _WalletScreenState extends State<WalletScreen> {
                 ],
               ),
             ),
-            Divider(
+            const Divider(
               height: 10,
             ),
             _isDataLoading
-                ? Center(
+                ? const Center(
                     child: CircularProgressIndicator(),
                   )
                 : wallet.length == 0
                     ? const Text('No Wallet Found!!!')
                     : ListView.builder(
                         shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
+                        physics: const NeverScrollableScrollPhysics(),
                         itemCount: wallet.length,
                         itemBuilder: (context, index) {
                           return WalletCard(

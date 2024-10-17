@@ -49,25 +49,25 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 SmoothPageIndicator(
                   controller: _pageController, // Page controller
                   count: 3, // Number of pages
-                  effect: WormEffect(
+                  effect: const WormEffect(
                     activeDotColor: Colors.white,
                     dotColor: Colors.grey,
                     dotHeight: 10,
                     dotWidth: 10,
                   ),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20.0),
                   child: ElevatedButton(
                     onPressed: () {
-                      Get.offAll(LoginScreen());
+                      Get.offAll(const LoginScreen());
                     },
                     style: ElevatedButton.styleFrom(
-                      padding: EdgeInsets.all(15),
-                      minimumSize: Size(double.infinity, 50),
+                      padding: const EdgeInsets.all(15),
+                      minimumSize: const Size(double.infinity, 50),
                     ),
-                    child: Text('Get Started'),
+                    child: const Text('Get Started'),
                   ),
                 ),
               ],

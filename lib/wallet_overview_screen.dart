@@ -349,8 +349,8 @@ class _WalletOverviewScreenState extends State<WalletOverviewScreen> {
             )
           : SingleChildScrollView(
               child: Column(children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
+                const Padding(
+                  padding: EdgeInsets.all(8.0),
                   child: Text(
                     'Once you redeem it, the credit will be processed within 24 hours',
                     textAlign: TextAlign.center,
