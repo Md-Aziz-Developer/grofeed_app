@@ -155,7 +155,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     icon: Icon(Icons.abc_sharp,
                         color: Theme.of(context).colorScheme.primary),
                     border: InputBorder.none,
-                    label: Text('Full Name'),
+                    label: const Text('Full Name'),
                     hintText: 'Enter Full Name'),
                 style: const TextStyle(fontSize: 14, color: Colors.black),
                 validator: (value) {
@@ -182,7 +182,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     icon: Icon(Icons.email,
                         color: Theme.of(context).colorScheme.primary),
                     border: InputBorder.none,
-                    label: Text('Your Email'),
+                    label: const Text('Your Email'),
                     hintText: 'Enter Your Email'),
                 style: const TextStyle(fontSize: 14, color: Colors.black),
                 validator: (value) {
@@ -209,7 +209,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     icon: Icon(Icons.numbers,
                         color: Theme.of(context).colorScheme.primary),
                     border: InputBorder.none,
-                    label: Text('Mobile Number'),
+                    label: const Text('Mobile Number'),
                     hintText: '+91'),
                 style: const TextStyle(fontSize: 14, color: Colors.black),
                 validator: (value) {
@@ -236,7 +236,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     icon: Icon(Icons.abc_sharp,
                         color: Theme.of(context).colorScheme.primary),
                     border: InputBorder.none,
-                    label: Text('Username '),
+                    label: const Text('Username '),
                     hintText: 'Enter your username'),
                 style: const TextStyle(fontSize: 14, color: Colors.black),
                 validator: (value) {
@@ -364,7 +364,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               color: Theme.of(context).colorScheme.secondary),
                         )),
                   ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Row(

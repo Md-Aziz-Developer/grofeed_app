@@ -82,12 +82,12 @@ class _ManageBeneficiaryState extends State<ManageBeneficiary> {
             ),
           )),
       body: _isDataLoading
-          ? Center(child: CircularProgressIndicator())
+          ? const Center(child: CircularProgressIndicator())
           : Padding(
               padding: const EdgeInsets.all(8.0),
               child: ListView.separated(
                 separatorBuilder: (context, index) {
-                  return Divider(height: 5);
+                  return const Divider(height: 5);
                 },
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
